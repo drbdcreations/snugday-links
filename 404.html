@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Snugday invitation</title>
+<style>
+  :root { color-scheme: light dark; --bg: #eef3f9; --text: #1f2e3b; --muted: #4d5d6b; --primary: #36607f; --on-primary: #fff; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #16202a; --text: #e8eef4; --muted: #a9b7c4; --primary: #8db6d6; --on-primary: #13202b; }
+  }
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--bg); color: var(--text); font: 17px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 420px; padding: 24px 16px; }
+  h1 { font-size: 26px; line-height: 1.25; margin: 0 0 12px; }
+  p { margin: 0 0 20px; color: var(--muted); }
+  a.button { display: block; padding: 14px 20px; border-radius: 16px; background: var(--primary); color: var(--on-primary); font-weight: 700; text-align: center; text-decoration: none; }
+  [hidden] { display: none; }
+</style>
+</head>
+<body>
+<main>
+  <div id="invite" hidden>
+    <h1>You’ve been invited to a family circle on Snugday</h1>
+    <p>Open this invitation in the Snugday app.</p>
+    <p><a class="button" id="open">Open in Snugday</a></p>
+    <p>Snugday isn’t in the app stores yet, so this link only opens on phones that already have it.</p>
+  </div>
+  <div id="other" hidden>
+    <h1>This invite link doesn’t work. Ask for a new one.</h1>
+  </div>
+</main>
+<script>
+  // The invitation stays on this page: nothing is stored or sent anywhere.
+  var m = location.pathname.match(/^\/invite\/([0-9a-f]{64})\/?$/);
+  if (m) {
+    document.getElementById('open').href = 'snugday://app/invite/' + m[1];
+    document.getElementById('invite').hidden = false;
+  } else {
+    document.getElementById('other').hidden = false;
+  }
+</script>
+</body>
+</html>
