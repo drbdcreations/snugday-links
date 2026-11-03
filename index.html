@@ -4,14 +4,52 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
 <title>Snugday</title>
 <style>
-  :root { color-scheme: light dark; --bg: #eef3f9; --text: #1f2e3b; }
-  @media (prefers-color-scheme: dark) { :root { --bg: #16202a; --text: #e8eef4; } }
-  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--bg); color: var(--text); font: 26px/1.25 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-weight: 700; }
+  :root { color-scheme: light dark; --bg: #eef3f9; --text: #1f2e3b; --muted: #4d5d6b; --primary: #36607f; --on-primary: #fff; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #16202a; --text: #e8eef4; --muted: #a9b7c4; --primary: #8db6d6; --on-primary: #13202b; }
+  }
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--bg); color: var(--text); font: 17px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 420px; padding: 24px 16px; }
+  h1 { font-size: 26px; line-height: 1.25; margin: 0 0 12px; }
+  p { margin: 0 0 20px; color: var(--muted); }
+  a.button { display: block; padding: 14px 20px; border-radius: 16px; background: var(--primary); color: var(--on-primary); font-weight: 700; text-align: center; text-decoration: none; }
+  [hidden] { display: none; }
 </style>
 </head>
 <body>
-<main>Snugday</main>
+<main>
+  <h1 id="plain">Snugday</h1>
+  <div id="confirmed" hidden>
+    <h1>You’re all set</h1>
+    <p>Your email is confirmed. Go back to Snugday and sign in.</p>
+    <p><a class="button" href="snugday://app/">Open Snugday</a></p>
+  </div>
+  <div id="failed" hidden>
+    <h1>This link didn’t work</h1>
+    <p>It may have expired or already been used. Open Snugday and try signing in.</p>
+    <p><a class="button" href="snugday://app/">Open Snugday</a></p>
+  </div>
+</main>
+<script>
+  // D2-135: where an email confirmation link lands. Supabase adds a code on
+  // success and an error when the link failed. Only those change the page.
+  var query = new URLSearchParams(location.search);
+  var hash = new URLSearchParams(location.hash.replace(/^#/, ''));
+  var show = null;
+  if (query.has('error') || query.has('error_code') || hash.has('error') || hash.has('error_code')) {
+    show = 'failed';
+  } else if (query.has('code') || hash.get('type') === 'signup') {
+    show = 'confirmed';
+  }
+  if (show) {
+    document.getElementById('plain').hidden = true;
+    document.getElementById(show).hidden = false;
+    // Nothing from the link stays in the address bar or browser history.
+    history.replaceState(null, '', location.pathname);
+  }
+</script>
 </body>
 </html>
