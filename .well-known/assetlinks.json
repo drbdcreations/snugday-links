@@ -3,9 +3,10 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "app.snugday.snugday",
+      "package_name": "com.kalfoundry.snugday",
       "sha256_cert_fingerprints": [
-        "B1:CE:97:40:87:B3:CA:54:C8:A2:59:11:FD:60:02:D4:1D:C4:5F:C7:83:FA:B0:7B:F6:45:7A:8C:20:5A:AC:3D"
+        "B1:CE:97:40:87:B3:CA:54:C8:A2:59:11:FD:60:02:D4:1D:C4:5F:C7:83:FA:B0:7B:F6:45:7A:8C:20:5A:AC:3D",
+        "C3:A4:01:8B:3E:06:74:51:BA:F6:42:F8:05:D5:B4:56:5C:FA:91:F7:82:23:64:C0:71:CB:0E:7E:A9:85:1D:36"
       ]
     }
   }
