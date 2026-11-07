@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["LSFZ688TNU.com.kalfoundry.snugday"],
+        "components": [{ "/": "/invite/*" }]
+      }
+    ]
+  }
+}
